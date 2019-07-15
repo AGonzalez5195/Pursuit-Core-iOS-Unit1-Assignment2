@@ -51,7 +51,7 @@ while incorrectGuesses < 6 && lettersLeft > 0 { //The game will loop until these
     }
     if let guess = guess { //If the guess actually contains something, execute the stuff. Don't have to mess with optionals because of this line.
     if guessedChars.contains((guess)) {
-        print("Guessed Letters: \(guessedChars)")
+        print("Guessed Letters: \(Array(guessedChars.sorted()))")
         print("'\(guess)' was already guessed.") //Does not increase counter if this happens.
         continue
     }
@@ -67,7 +67,7 @@ while incorrectGuesses < 6 && lettersLeft > 0 { //The game will loop until these
             underscoreArray[index] = String(guess)
             print(underscoreArray)
             print("")
-            print("Guessed Letters: \(guessedChars)" )
+            print("Guessed Letters: \(Array(guessedChars.sorted()))")
             lettersLeft -= 1 // This is placed here instead of in the set.contains because the set having only one of each element would cause the program to hang.
             for elements in underscoreArray {
                 var placeHolder: [String] = []
@@ -142,7 +142,7 @@ He's dead, Jim. 😵 The word was '\(wordToGuess!)'.
         default: print() // Will never print.
         }
         print(underscoreArray)
-        print("Guessed Letters: \(guessedChars)" )
+        print("Guessed Letters: \(Array(guessedChars.sorted()))")
         print("")
         break
     }
