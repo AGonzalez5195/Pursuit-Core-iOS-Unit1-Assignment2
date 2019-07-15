@@ -51,12 +51,14 @@ while incorrectGuesses < 6 && lettersLeft > 0 { //The game will loop until these
     }
     if let guess = guess { //If the guess actually contains something, execute the stuff. Don't have to mess with optionals because of this line.
     if guessedChars.contains((guess)) {
+        print("Guessed Letters: \(guessedChars)")
         print("'\(guess)' was already guessed.") //Does not increase counter if this happens.
         continue
     }
     
     if setWord.contains(String(guess)) { // Since it's a set, each character can only appear once, max.
         totalGuesses += 1
+        print("")
         print("Nice job. '\(guess)' is in the word.")
     }
     guessedChars.insert((guess)) //This runs because there is nothing at the end of the previous brace that would prevent it from doing so.
@@ -64,6 +66,8 @@ while incorrectGuesses < 6 && lettersLeft > 0 { //The game will loop until these
         if element == (guess) { //if the letter in the chosen word matches the users input, change the underscore of the empty array at the same index as the character is in the word.
             underscoreArray[index] = String(guess)
             print(underscoreArray)
+            print("")
+            print("Guessed Letters: \(guessedChars)" )
             lettersLeft -= 1 // This is placed here instead of in the set.contains because the set having only one of each element would cause the program to hang.
             for elements in underscoreArray {
                 var placeHolder: [String] = []
@@ -137,6 +141,9 @@ He's dead, Jim. 😵 The word was '\(wordToGuess!)'.
 """)
         default: print() // Will never print.
         }
+        print(underscoreArray)
+        print("Guessed Letters: \(guessedChars)" )
+        print("")
         break
     }
 }
@@ -145,8 +152,8 @@ He's dead, Jim. 😵 The word was '\(wordToGuess!)'.
     }
     if incorrectGuesses >= 6 || lettersLeft == 0 { //Determines the end of the game.
     print("Play again? [Enter 'Y' to retry or any other input to end.]")
-    let answer = readLine()?.lowercased() //Accounts for user typing "Y" or "y"
-    if answer == "y" {
+    let answer = readLine()?.uppercased() //Accounts for user typing "y"
+    if answer == "Y" {
         continue //restarts the loop if selected.
     } else {
         print("Thanks for playing. 🐸")
