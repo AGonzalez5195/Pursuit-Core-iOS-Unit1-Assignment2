@@ -31,7 +31,7 @@ var underscoreArray: [String] = [] //This contains the array containing undersco
 for _ in wordToGuess! {
     underscoreArray.append("_")
 }
-print(underscoreArray)
+print(underscoreArray.joined(separator: " "))
 var guessedChars: Set<String> = [] //This is a set that holds all of the already guessed characters.
 var incorrectGuesses = 0 //A loss condition. Starts the counter at 0 and goes up with each wrong guess.
 var totalGuesses = 0 //Counter that is tracked regardless of right or wrong. Returned to user at the end.
@@ -66,7 +66,7 @@ while incorrectGuesses < 6 && lettersLeft > 0 { //The game will loop until these
     for (index, element) in lettersWordToGuess.enumerated() { //goes through the array of the chosen word, letter by letter
         if element == (guess) { //if the letter in the chosen word matches the users input, change the underscore of the empty array at the same index as the character is in the word.
             underscoreArray[index] = String(guess)
-            print(underscoreArray)
+            print(underscoreArray.joined(separator: " "))
             print("")
             print("Guessed Letters: \(Array(guessedChars.sorted()))")
             lettersLeft -= 1 // This is placed here instead of in the set.contains because the set having only one of each element would cause the program to hang.
@@ -142,7 +142,7 @@ He's dead, Jim. 😵 The word was '\(wordToGuess!)'.
 """)
         default: print() // Will never print.
         }
-        print(underscoreArray)
+        print(underscoreArray.joined(separator: " "))
         print("Guessed Letters: \(Array(guessedChars.sorted()))")
         print("")
         break
