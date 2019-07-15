@@ -26,7 +26,7 @@ for characters in wordToGuess! {
 let setWord = Set(lettersWordToGuess) // Set was created so that each letter only occurs once. This prevents conditions occuring more than once in words that have more than one of the same letter.
 var lettersLeft = lettersWordToGuess.count //Win condition. Letters left to guess approaches 0 for every correct guess and starts at the count of the word length.
     
-//print(lettersWordToGuess) //Only un-comment out for debugging purposes. Used to show actual word.
+print(lettersWordToGuess) //Only un-comment out for debugging purposes. Used to show actual word.
 var underscoreArray: [String] = [] //This contains the array containing underscores that will then be replaced by characters upon successful guesses. Printed for user feedback (seeing correct letters + length of word).
 for _ in wordToGuess! {
     underscoreArray.append("_")
@@ -61,14 +61,14 @@ while incorrectGuesses < 6 && lettersLeft > 0 { //The game will loop until these
         totalGuesses += 1
         print("")
         print("Nice job. '\(guess)' is in the word.")
+        
     }
     guessedChars.insert((guess)) //This runs because there is nothing at the end of the previous brace that would prevent it from doing so.
+        print("Guessed Letters: \(Array(guessedChars.sorted()))")
     for (index, element) in lettersWordToGuess.enumerated() { //goes through the array of the chosen word, letter by letter
         if element == (guess) { //if the letter in the chosen word matches the users input, change the underscore of the empty array at the same index as the character is in the word.
             underscoreArray[index] = String(guess)
             print(underscoreArray.joined(separator: " "))
-            print("")
-            print("Guessed Letters: \(Array(guessedChars.sorted()))")
             lettersLeft -= 1 // This is placed here instead of in the set.contains because the set having only one of each element would cause the program to hang.
             for elements in underscoreArray {
                 var placeHolder: [String] = []
