@@ -140,6 +140,7 @@ He's dead, Jim. 😵 The word was '\(wordToGuess!)'.
 """)
         default: print() // Will never print.
         }
+        print(underscoreArray)
         print("Guessed Letters: \(guessedChars)" )
         break
     }
