@@ -20,11 +20,11 @@ for characters in wordToGuess! {
     lettersWordToGuess.append(String(characters))
     }
 
-    let setWord = Set(lettersWordToGuess) // Set was created so that each letter only occurs once. This prevents conditions occuring more than once in words that have more than one of the same letter.
-    var lettersLeft = lettersWordToGuess.count //Win condition. Letters left to guess approaches 0 for every correct guess.
+let setWord = Set(lettersWordToGuess) // Set was created so that each letter only occurs once. This prevents conditions occuring more than once in words that have more than one of the same letter.
+var lettersLeft = lettersWordToGuess.count //Win condition. Letters left to guess approaches 0 for every correct guess and starts at the count of the word length.
     
 //print(lettersWordToGuess) //Only un-comment out for debugging purposes. Used to show actual word.
-var underscoreArray: [String] = [] //This contains the array containing underscores that will then be replaced by characters upon successful guesses.
+var underscoreArray: [String] = [] //This contains the array containing underscores that will then be replaced by characters upon successful guesses. Printed for user feedback (seeing correct letters + length of word).
 for _ in wordToGuess! {
     underscoreArray.append("_")
 }
@@ -37,12 +37,12 @@ var totalGuesses = 0 //Counter that is tracked regardless of right or wrong. Ret
 while incorrectGuesses < 6 && lettersLeft > 0 { //The game will loop until these conditions are met.
     print("Enter Letter (A-Z):", terminator: " ") //Interfacing stuff to make it clear to user what to input.
     let guess = readLine() //User input
-    //The following guard statements are made to guard against users abusing/misusing the string input type. Setting it to character instead will just cause a crash.
+    //The following guard statements are made to guard against users abusing/misusing the string input type. Setting it to character instead will just cause a crash which is undesirable.
     guard guess!.count == 1 else { //Guards against an input that is less than 1 or greater than 1.
         print("Input must be one letter.")
         continue
     }
-    
+
     guard alphabet.contains(guess!) else { //Guards against inputs not from the alphabet variable made above.
         print("Input can only be a letter from A-Z. ")
         continue
@@ -55,9 +55,8 @@ while incorrectGuesses < 6 && lettersLeft > 0 { //The game will loop until these
     
     if setWord.contains(String(guess)) { // Since it's a set, each character can only appear once, max.
         totalGuesses += 1
-        print("\(guess) is in the word")
+        print("Nice job. '\(guess)' is in the word.")
     }
-    
     guessedChars.insert((guess)) //This runs because there is nothing at the end of the previous brace that would prevent it from doing so.
     for (index, element) in lettersWordToGuess.enumerated() { //goes through the array of the chosen word, letter by letter
         if element == (guess) { //if the letter in the chosen word matches the users input, change the underscore of the empty array at the same index as the character is in the word.
@@ -73,7 +72,7 @@ while incorrectGuesses < 6 && lettersLeft > 0 { //The game will loop until these
         }
     }
     if !lettersWordToGuess.contains((guess)) { //Execute if input does not match word letter.
-        print("'\(guess)' is not a letter in the word. (\(5 - incorrectGuesses) attempts remaining)")
+        print("'\(guess)' is not a letter in the word. Save him before it's too late. (\(5 - incorrectGuesses) attempts remaining)")
         totalGuesses += 1
         incorrectGuesses += 1
         switch incorrectGuesses { //Visual feedback.
@@ -130,25 +129,22 @@ O   |
 / \\  |
      |
 =========
+He's dead, Jim. 😵 The word was '\(wordToGuess!)'.
 """)
         default: print()
         }
-        if  incorrectGuesses == 6 {
-            print("He's dead, Jim. 😵 The word was '\(wordToGuess!)'.")
-        }
         break
     }
-    
 }
     if lettersLeft == 0 {
         print("You win. It took you \(totalGuesses) guesses. ")
     }
     if incorrectGuesses >= 6 || lettersLeft == 0 { //Determines the end of the game.
-    print("Play again? [Enter yes or no]")
-    let answer = readLine()?.lowercased() //Accounts for user typing "YES" or "Yes", neither of which would match "yes". So, the readline is lowercased.
-    if answer == "yes" {
+    print("Play again? [Enter 'Y' to retry or any other input to end.]")
+    let answer = readLine()?.lowercased() //Accounts for user typing "Y" or "y"
+    if answer == "y" {
         continue //restarts the loop if selected.
-    } else if answer == "no" {
+    } else {
         print("Thanks for playing. 🐸")
         gameStatus = false //ends the while loop if selected
     }
